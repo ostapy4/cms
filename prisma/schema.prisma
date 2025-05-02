@@ -52,8 +52,8 @@ model Detail {
 
 model SheetMusic {
   id          String   @id @default(cuid())
-  title       String
   author      String   @default("")
+  title       String
   category    String   @default("")
   level       String   @default("")
   genre       String   @default("")

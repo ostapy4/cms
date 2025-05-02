@@ -25,6 +25,8 @@ export const upload_sheets = async (formData: SheetsInput) => {
         title: data.title,
         description: data.description,
         category: data.category,
+        level: data.level,
+        genre: data.genre,
         price: data.price,
         pdfUrl: data.pdfUrl,
         preview: data.preview,
@@ -56,13 +58,15 @@ export async function update_sheet(formData: SheetsInput) {
         id: data.id,
       },
       data: {
+        title:data.title,
         author: data.author,
         category: data.category,
         description: data.description,
+        level: data.level,
+        genre: data.genre,
         pdfUrl: data.pdfUrl,
         preview: data.preview,
         price: data.price,
-        title:data.title,
         griffType: data?.griffType
       },
     });

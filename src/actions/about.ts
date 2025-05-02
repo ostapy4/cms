@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-import { sectionSchema } from "app/(admin)/_components/About/SectionForm";
+import { sectionSchema } from "app/_components/About/SectionForm";
 
 import { prismaDB } from "lib/db";
 import { AdminUrls } from "route-urls";

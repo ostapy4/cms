@@ -22,6 +22,8 @@ export const sheetsSchema = z.object({
   author: z.string().default(""),
   title: z.string().nonempty("Title is required"),
   category: z.string().nonempty("Category is required"),
+  level: z.string().default(""),
+  genre: z.string().default(""),
   description: z.string().default(""),
   pdfUrl: z.string().nonempty("File is required"),
   preview: z.string().default(""),
