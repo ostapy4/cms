@@ -1,3 +1,4 @@
+import { ReviewDeleteButton } from "./ReviewDeleteButton";
 import { ReviewForm } from "./ReviewForm";
 import Image from "next/image";
 
@@ -18,7 +19,8 @@ export default async function ReviewsSection() {
             <ul className={"flex flex-col gap-y-2"}>
               {reviews.map((r, Idx) => {
                 return (
-                  <li key={r.id}>
+                  <li key={r.id} className={"group relative"}>
+                    <ReviewDeleteButton id={r.id} />
                     <div
                       className={
                         "flex items-center gap-x-2 divide-x-2 divide-lime-700 rounded-lg border border-lime-700 p-1"

@@ -27,6 +27,12 @@ model Gallery {
   images Image[]
 }
 
+model YoutubeVideo {
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+}
+
 // About
 
 model Section {

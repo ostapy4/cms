@@ -1,10 +1,10 @@
 "use server";
 
-import { Review } from "@prisma/client";
+import { Review} from "@prisma/client";
 import { prismaDB } from "lib/db";
 import { revalidatePath } from "next/cache";
 import { AdminUrls } from "route-urls";
-import { reviewSchema } from "utils/zod-schemas";
+import { reviewSchema, youtubeVideoSchema } from "utils/zod-schemas";
 
 type GalleryInput = {
   title: string;
@@ -112,8 +112,69 @@ export const create_review = async (review: Omit<Review, "id" | "createdAt">) =>
     revalidatePath(AdminUrls._getRoot())
     return newReview;
   } catch (error) {
-    console.error("Error updating main image:", error);
+    console.error("Error creating review:", error);
 
     throw new Error(error instanceof Error ? error.message : "An unknown error occurred while creating a new review")
+  }
+};
+
+export const delete_review = async (id: string) => {
+  if (!id) {
+    throw new Error("Review ID is required for deletion.");
+  }
+
+  try {
+    const deletedReview = await prismaDB.review.delete({
+      where: { id },
+    });
+    console.log("deleted review", deletedReview);
+    revalidatePath(AdminUrls._getRoot());
+
+    return deletedReview;
+  } catch (error) {
+    console.error("Error while deleting the review:", error);
+    throw new Error("Failed to delete the review.");
+  }
+};
+
+
+export const create_youtube_video = async (url: string) => {
+  const { success, data } = youtubeVideoSchema.safeParse({url});
+
+  if (!success) {
+    throw new Error(
+      "You must provide a url.",
+    );
+  }
+
+  try {
+    const newYoutubeVideo = await prismaDB.youtubeVideo.create({
+      data,
+    });
+    revalidatePath(AdminUrls._getRoot())
+    return newYoutubeVideo;
+  } catch (error) {
+    console.error("Error creating video url:", error);
+
+    throw new Error(error instanceof Error ? error.message : "An unknown error occurred while creating a new video url")
+  }
+};
+
+export const delete_youtube_video = async (id: string) => {
+  if (!id) {
+    throw new Error("Video ID is required for deletion.");
+  }
+
+  try {
+    const deletedVideo = await prismaDB.youtubeVideo.delete({
+      where: { id },
+    });
+    console.log("deletedVideo", deletedVideo);
+    revalidatePath(AdminUrls._getRoot())
+
+    return deletedVideo;
+  } catch (error) {
+    console.error("Error while deleting the video:", error);
+    throw new Error("Failed to delete the video.");
   }
 };

@@ -36,3 +36,7 @@ export const reviewSchema = z.object({
   text: z.string().default(""),
   avatar: z.string().default(""),
 });
+
+export const youtubeVideoSchema = z.object({
+  url: z.string().nonempty("Url is required"),
+});
